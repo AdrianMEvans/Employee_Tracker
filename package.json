@@ -1,0 +1,24 @@
+{
+  "name": "Employee_Tracker",
+  "version": "1.0.0",
+  "description": "A basic solution for managing a company's employees using node, inquirer, and MySQL",
+  "main": "app.js",
+  "dependencies": {
+    "inquirer": "^8.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianMEvans/Employee_Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdrianMEvans/Employee_Tracker/issues"
+  },
+  "homepage": "https://github.com/AdrianMEvans/Employee_Tracker#readme"
+}
