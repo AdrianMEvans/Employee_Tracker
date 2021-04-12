@@ -15,14 +15,20 @@ function manageEmployee() {
     console.log("Manage Employeeeee!!");
     function addEmployee() {
         console.log("Add Employee!!");
+
+        main();
     }
     
     function viewEmployee() {
         console.log("View Employee!!");
+
+        main();
     }
 
     function updateEmployee() {
         console.log("Update Employee!!");
+
+        main();
     }
     function employeeTasks(payload) {
 
@@ -59,14 +65,20 @@ function manageRole() {
     console.log("Manage Roles!!");
     function addRole() {
         console.log("Add Role!!");
+
+        main();
     }
     
     function viewRole() {
         console.log("View Role!!");
+
+        main();
     }
 
     function updateRole() {
         console.log("Update Role!!");
+
+        main();
     }
     function roleTasks(payload) {
 
@@ -104,14 +116,20 @@ function manageDepartment() {
     
         function addDepartment() {
             console.log("Add Department!!");
+
+        main();
         }
         
         function viewDepartment() {
             console.log("View Department!!");
+
+        main();
         }
     
         function updateDepartment() {
             console.log("Update Department!!");
+
+        main();
         }
         function departmentTasks(payload) {
     
