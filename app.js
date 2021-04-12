@@ -9,6 +9,7 @@ const connection = mysql.createConnection({
     password: "Y3in@mysql",
 });
 
+//MANAGE EMPLOYEE TABLE
 function manageEmployee() {
     console.log("Manage Employeeeee!!");
     function addEmployee() {
@@ -52,15 +53,96 @@ function manageEmployee() {
         employeesMain();
 }
 
+// MANAGE ROLE TABLE
 function manageRole() {
     console.log("Manage Roles!!");
+    function addRole() {
+        console.log("Add Role!!");
+    }
+    
+    function viewRole() {
+        console.log("View Role!!");
+    }
+
+    function updateRole() {
+        console.log("Update Role!!");
+    }
+    function roleTasks(payload) {
+
+        const taskNames = Object.keys(payload);
+        const choices = taskNames.map((task) => {
+            return {
+                name: task,
+                value: payload[task],
+            }
+        })
+    
+        inquirer.prompt([
+            {
+                name: "taskSelected",
+                message: "What would you like to do?",
+                type: "list",
+                choices: choices,
+            }
+        ]).then(({taskSelected}) => taskSelected())
+        }
+    
+        function roleMain() {
+            roleTasks({
+                "Add Role": addRole,
+                "View Role": viewRole,
+                "Update Role": updateRole,
+            })        
+        }
+        roleMain();
 }
 
+// MANAGE DEPARTMENT TABLE
 function manageDepartment() {
     console.log("Manage Department!!");
+    
+        function addDepartment() {
+            console.log("Add Department!!");
+        }
+        
+        function viewDepartment() {
+            console.log("View Department!!");
+        }
+    
+        function updateDepartment() {
+            console.log("Update Department!!");
+        }
+        function departmentTasks(payload) {
+    
+            const taskNames = Object.keys(payload);
+            const choices = taskNames.map((task) => {
+                return {
+                    name: task,
+                    value: payload[task],
+                }
+            })
+        
+            inquirer.prompt([
+                {
+                    name: "taskSelected",
+                    message: "What would you like to do?",
+                    type: "list",
+                    choices: choices,
+                }
+            ]).then(({taskSelected}) => taskSelected())
+            }
+        
+            function departmentMain() {
+                departmentTasks({
+                    "Add Department": addDepartment,
+                    "View Department": viewDepartment,
+                    "Update Department": updateDepartment,
+                })        
+            }
+            departmentMain();
 }
 
-
+// INTRO TO MANAGING THE TABLES
 function askTasks(payload) {
 
     const taskNames = Object.keys(payload);
