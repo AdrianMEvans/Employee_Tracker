@@ -2,15 +2,18 @@ const mysql = require("mysql2");
 
 const inquirer = require('inquirer');
 
+// const manageEmployee = require('./src/inquirer/manageEmployee');
+const manageRole = require('./src/inquirer/manageRole');
+const manageDepartment = require('./src/inquirer/manageDepartment');
+
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
     password: "Y3in@mysql",
-    database: "Employee_Tracker",
+    database: "Employee_Tracker_DB",
 });
 
-//MANAGE EMPLOYEE TABLE
 function manageEmployee() {
     console.log("Manage Employeeeee!!");
     function addEmployee() {
@@ -20,11 +23,29 @@ function manageEmployee() {
     }
     
     function viewEmployee() {
-        console.log("View Employee!!");
-
-        main();
-    }
-
+        console.log("Viewing employees\n");
+      
+        var query =
+          `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
+        FROM employee e
+        LEFT JOIN role r
+          ON e.role_id = r.id
+        LEFT JOIN department d
+        ON d.id = r.department_id
+        LEFT JOIN employee m
+          ON m.id = e.manager_id`
+      
+        connection.query(query, function (err, res) {
+          if (err) throw err;
+      
+          console.table(res);
+          console.log("Employees viewed!\n");
+      
+          main();
+        });
+        // console.log(query.sql);
+      }
+      
     function updateEmployee() {
         console.log("Update Employee!!");
 
@@ -60,106 +81,6 @@ function manageEmployee() {
         employeesMain();
 }
 
-// MANAGE ROLE TABLE
-function manageRole() {
-    console.log("Manage Roles!!");
-    function addRole() {
-        console.log("Add Role!!");
-
-        main();
-    }
-    
-    function viewRole() {
-        console.log("View Role!!");
-
-        main();
-    }
-
-    function updateRole() {
-        console.log("Update Role!!");
-
-        main();
-    }
-    function roleTasks(payload) {
-
-        const taskNames = Object.keys(payload);
-        const choices = taskNames.map((task) => {
-            return {
-                name: task,
-                value: payload[task],
-            }
-        })
-    
-        inquirer.prompt([
-            {
-                name: "taskSelected",
-                message: "What would you like to do?",
-                type: "list",
-                choices: choices,
-            }
-        ]).then(({taskSelected}) => taskSelected())
-        }
-    
-        function roleMain() {
-            roleTasks({
-                "Add Role": addRole,
-                "View Role": viewRole,
-                "Update Role": updateRole,
-            })        
-        }
-        roleMain();
-}
-
-// MANAGE DEPARTMENT TABLE
-function manageDepartment() {
-    console.log("Manage Department!!");
-    
-        function addDepartment() {
-            console.log("Add Department!!");
-
-        main();
-        }
-        
-        function viewDepartment() {
-            console.log("View Department!!");
-
-        main();
-        }
-    
-        function updateDepartment() {
-            console.log("Update Department!!");
-
-        main();
-        }
-        function departmentTasks(payload) {
-    
-            const taskNames = Object.keys(payload);
-            const choices = taskNames.map((task) => {
-                return {
-                    name: task,
-                    value: payload[task],
-                }
-            })
-        
-            inquirer.prompt([
-                {
-                    name: "taskSelected",
-                    message: "What would you like to do?",
-                    type: "list",
-                    choices: choices,
-                }
-            ]).then(({taskSelected}) => taskSelected())
-            }
-        
-            function departmentMain() {
-                departmentTasks({
-                    "Add Department": addDepartment,
-                    "View Department": viewDepartment,
-                    "Update Department": updateDepartment,
-                })        
-            }
-            departmentMain();
-}
 
 // INTRO TO MANAGING THE TABLES
 function askTasks(payload) {

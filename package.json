@@ -4,6 +4,7 @@
   "description": "A basic solution for managing a company's employees using node, inquirer, and MySQL",
   "main": "app.js",
   "dependencies": {
+    "console.table": "^0.10.0",
     "inquirer": "^8.0.0",
     "mysql2": "^2.2.5"
   },
