@@ -44,17 +44,17 @@ function manageEmployee() {
             {
               type: "input",
               name: "first_name",
-              message: "Enter the employee's first name?"
+              message: "Employee's first name?"
             },
             {
               type: "input",
               name: "last_name",
-              message: "Enter the employee's last name?"
+              message: "Employee's last name?"
             },
             {
               type: "list",
               name: "roleId",
-              message: "What is the Employee's role?",
+              message: "Choose Employee's role?",
               choices: roleChoices
             },
             {
@@ -85,7 +85,7 @@ function manageEmployee() {
       }
     
     function viewEmployee() {
-        console.log("Showing list of employees\n");
+        console.log("Showing the employee list.\n");
       
         let query = 
     `SELECT 
@@ -168,7 +168,7 @@ function getDept(deptChoices){
 }
       
     function updateEmployeeRole() {
-        console.log("Update Employee Role!");
+        console.log("Update an Employee's Role!");
 
             let query = `SELECT 
                             e.id,
@@ -265,7 +265,7 @@ function getDept(deptChoices){
                 {
                   type: "list",
                   name: "employee",
-                  message: "Employee To Be Deleted: ",
+                  message: "Which Employee do you want to delete? ",
                   choices: employee
                 }
               ]).then((res)=>{
@@ -323,7 +323,7 @@ function askTasks(payload) {
     inquirer.prompt([
         {
             name: "taskSelected",
-            message: "What would you like to do?",
+            message: "What would you like manage?",
             type: "list",
             choices: choices,
         }
@@ -335,6 +335,7 @@ function askTasks(payload) {
             "Manage Employees": manageEmployee,
             "Manage Roles": manageRole,
             "Manage Department": manageDepartment,
+            // "EXIT": exit,
         })        
     }
 
