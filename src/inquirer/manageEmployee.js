@@ -4,21 +4,20 @@
 //     console.log("Manage Employeeeee!!");
     
 //     function addEmployee() {
-//         console.log("Inserting an employee!")
+//         console.log("\nInserting an employee!\n")
+
+//         console.log("\nList of Roles to choose from ...\n");
       
 //         var query =
 //           `SELECT r.id, r.title, r.salary 
 //             FROM role r`
-      
-//         connection.query(query, function (err, res) {
-//           if (err) throw err;
-      
-//           const roleChoices = res.map(({ id, title, salary }) => ({
-//             value: id, title: `${title}`, salary: `${salary}`
-//           }));
-      
-//           console.table(res);
-//           console.log("RoleToInsert!");
+
+//         connection.query(query,(err, res)=>{
+//         if (err) throw err;
+//         const roleChoices = res.map((choices) => ({
+//             value: choices.id, name: choices.name
+//         }));
+//         console.table(res);
       
 //           promptInsert(roleChoices);
 //         });
@@ -31,17 +30,17 @@
 //             {
 //               type: "input",
 //               name: "first_name",
-//               message: "Enter the employee's first name?"
+//               message: "Employee's first name?"
 //             },
 //             {
 //               type: "input",
 //               name: "last_name",
-//               message: "Enter the employee's last name?"
+//               message: "Employee's last name?"
 //             },
 //             {
 //               type: "list",
 //               name: "roleId",
-//               message: "What is the Employee's role?",
+//               message: "Choose Employee's role?",
 //               choices: roleChoices
 //             },
 //             {
@@ -64,9 +63,7 @@
 //               function (err, res) {
 //                 if (err) throw err;
       
-//                 console.table(res);
-//                 // console.log(res.insertedRows + "Inserted successfully!\n");
-//                 console.log("Inserted successfully!\n");
+//                 console.log("\nInserted successfully!\n");
       
 //                 main();
 //               });
@@ -74,7 +71,7 @@
 //       }
     
 //     function viewEmployee() {
-//         console.log("Showing list of employees\n");
+//         console.log("Showing the employee list.\n");
       
 //         let query = 
 //     `SELECT 
@@ -157,7 +154,7 @@
 // }
       
 //     function updateEmployeeRole() {
-//         console.log("Update Employee Role!");
+//         console.log("Update an Employee's Role!");
 
 //             let query = `SELECT 
 //                             e.id,
@@ -229,6 +226,42 @@
 //             });
 //         }
 
+//         function deleteEmployee() {
+//             let query =
+//             `SELECT
+//                 e.id, 
+//                 e.first_name, 
+//                 e.last_name
+//             FROM employee  e`
+          
+//             connection.query(query,(err, res)=>{
+//               if(err)throw err;
+//               const employee = res.map(({ id, first_name, last_name }) => ({
+//                 value: id,
+//                 name: `${id} ${first_name} ${last_name}`
+//               }));
+//               console.table(res);
+//               employeeToRemove(employee);
+//             });
+//           }
+          
+//           function employeeToRemove(employee){  
+//             inquirer
+//               .prompt([
+//                 {
+//                   type: "list",
+//                   name: "employee",
+//                   message: "Which Employee do you want to delete? ",
+//                   choices: employee
+//                 }
+//               ]).then((res)=>{
+//                 let query = `DELETE FROM employee WHERE ?`;
+//                 connection.query(query, { id: res.employee },(err, res)=>{
+//                   if(err) throw err;
+//                   main();
+//                 });
+//               });
+//           }
 //     function employeeTasks(payload) {
 
 //         const taskNames = Object.keys(payload);
@@ -255,10 +288,10 @@
 //                 "View Employees": viewEmployee,
 //                 "Update Employee Role": updateEmployeeRole,
 //                 "Find Employee by Department": findEmployeesByDepartment,
+//                 "Delete Employees": deleteEmployee,
 //             })        
 //         }
 //         employeesMain();
 // }
-
 
 // module.exports = manageEmployee;
