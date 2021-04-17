@@ -1,54 +1,54 @@
-const inquirer = require('inquirer');
+// const inquirer = require('inquirer');
 
 // MANAGE DEPARTMENT TABLE
-function manageDepartment() {
-    console.log("Manage Department!!");
+// function manageDepartment() {
+//     console.log("Manage Department!!");
     
-        function addDepartment() {
-            console.log("Add Department!!");
+//         function addDepartment() {
+//             console.log("Add Department!!");
 
-        main();
-        }
+//         main();
+//         }
         
-        function viewDepartment() {
-            console.log("View Department!!");
+//         function viewDepartment() {
+//             console.log("View Department!!");
 
-        main();
-        }
+//         main();
+//         }
     
-        function updateDepartment() {
-            console.log("Update Department!!");
+//         function updateDepartment() {
+//             console.log("Update Department!!");
 
-        main();
-        }
-        function departmentTasks(payload) {
+//         main();
+//         }
+//         function departmentTasks(payload) {
     
-            const taskNames = Object.keys(payload);
-            const choices = taskNames.map((task) => {
-                return {
-                    name: task,
-                    value: payload[task],
-                }
-            })
+//             const taskNames = Object.keys(payload);
+//             const choices = taskNames.map((task) => {
+//                 return {
+//                     name: task,
+//                     value: payload[task],
+//                 }
+//             })
         
-            inquirer.prompt([
-                {
-                    name: "taskSelected",
-                    message: "What would you like to do?",
-                    type: "list",
-                    choices: choices,
-                }
-            ]).then(({taskSelected}) => taskSelected())
-            }
+//             inquirer.prompt([
+//                 {
+//                     name: "taskSelected",
+//                     message: "What would you like to do?",
+//                     type: "list",
+//                     choices: choices,
+//                 }
+//             ]).then(({taskSelected}) => taskSelected())
+//             }
         
-            function departmentMain() {
-                departmentTasks({
-                    "Add Department": addDepartment,
-                    "View Department": viewDepartment,
-                    "Update Department": updateDepartment,
-                })        
-            }
-            departmentMain();
-}
+//             function departmentMain() {
+//                 departmentTasks({
+//                     "Add Department": addDepartment,
+//                     "View Department": viewDepartment,
+//                     "Update Department": updateDepartment,
+//                 })        
+//             }
+//             departmentMain();
+// }
 
-module.exports = manageDepartment;
+// module.exports = manageDepartment;
