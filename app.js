@@ -16,35 +16,104 @@ const connection = mysql.createConnection({
 
 function manageEmployee() {
     console.log("Manage Employeeeee!!");
-    function addEmployee() {
-        console.log("Add Employee!!");
-
-        main();
-    }
     
-    function viewEmployee() {
-        console.log("Viewing employees\n");
+    function addEmployee() {
+        console.log("Inserting an employee!")
       
         var query =
-          `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, CONCAT(m.first_name, ' ', m.last_name) AS manager, r.salary
-        FROM employee e
-        LEFT JOIN employee m
-          ON m.id = e.manager_id
-        LEFT JOIN role r
-          ON e.role_id = r.id
-        LEFT JOIN department d
-        ON d.id = r.department_id`
+          `SELECT r.id, r.title, r.salary 
+            FROM role r`
       
         connection.query(query, function (err, res) {
           if (err) throw err;
       
-          console.table(res);
-          console.log("\nEmployees viewed!\n");
+          const roleChoices = res.map(({ id, title, salary }) => ({
+            value: id, title: `${title}`, salary: `${salary}`
+          }));
       
-          main();
+          console.table(res);
+          console.log("RoleToInsert!");
+      
+          promptInsert(roleChoices);
         });
-        // console.log(query.sql);
       }
+      
+      function promptInsert(roleChoices) {
+      
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              name: "first_name",
+              message: "Enter the employee's first name?"
+            },
+            {
+              type: "input",
+              name: "last_name",
+              message: "Enter the employee's last name?"
+            },
+            {
+              type: "list",
+              name: "roleId",
+              message: "What is the Employee's role?",
+              choices: roleChoices
+            },
+            {
+                type: "input",
+                name: "managerId",
+                message: "Enter Employee ID of Manager?",
+              },
+          ])
+          .then(function (answer) {
+            console.log(answer);
+      
+            var query = `INSERT INTO employee SET ?`
+            connection.query(query,
+              {
+                first_name: answer.first_name,
+                last_name: answer.last_name,
+                role_id: answer.roleId,
+                manager_id: answer.managerId,
+              },
+              function (err, res) {
+                if (err) throw err;
+      
+                console.table(res);
+                // console.log(res.insertedRows + "Inserted successfully!\n");
+                console.log("Inserted successfully!\n");
+      
+                main();
+              });
+          });
+      }
+    
+    function viewEmployee() {
+        console.log("Showing employee list\n");
+      
+        let query = 
+    `SELECT 
+        e.id, 
+        e.first_name, 
+        e.last_name, 
+        r.title, 
+        d.name AS department, 
+        r.salary, 
+        CONCAT(m.first_name, ' ', m.last_name) AS manager
+    FROM employee e
+    LEFT JOIN role r
+        ON e.role_id = r.id
+    LEFT JOIN department d
+        ON d.id = r.department_id
+    LEFT JOIN employee m
+        ON m.id = e.manager_id`
+  
+    connection.query(query, (err, res)=>{
+      if (err) throw err;
+      console.table(res);
+      main();
+    });
+}
+    
       
     function updateEmployee() {
         console.log("Update Employee!!");
@@ -74,7 +143,7 @@ function manageEmployee() {
         function employeesMain() {
             employeeTasks({
                 "Add Employee": addEmployee,
-                "View Employee": viewEmployee,
+                "View Employees": viewEmployee,
                 "Update Employee": updateEmployee,
             })        
         }
