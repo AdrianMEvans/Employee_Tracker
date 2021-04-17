@@ -240,6 +240,42 @@ function getDept(deptChoices){
             });
         }
 
+        function deleteEmployee() {
+            let query =
+            `SELECT
+                e.id, 
+                e.first_name, 
+                e.last_name
+            FROM employee  e`
+          
+            connection.query(query,(err, res)=>{
+              if(err)throw err;
+              const employee = res.map(({ id, first_name, last_name }) => ({
+                value: id,
+                name: `${id} ${first_name} ${last_name}`
+              }));
+              console.table(res);
+              employeeToRemove(employee);
+            });
+          }
+          
+          function employeeToRemove(employee){  
+            inquirer
+              .prompt([
+                {
+                  type: "list",
+                  name: "employee",
+                  message: "Employee To Be Deleted: ",
+                  choices: employee
+                }
+              ]).then((res)=>{
+                let query = `DELETE FROM employee WHERE ?`;
+                connection.query(query, { id: res.employee },(err, res)=>{
+                  if(err) throw err;
+                  main();
+                });
+              });
+          }
     function employeeTasks(payload) {
 
         const taskNames = Object.keys(payload);
@@ -266,6 +302,7 @@ function getDept(deptChoices){
                 "View Employees": viewEmployee,
                 "Update Employee Role": updateEmployeeRole,
                 "Find Employee by Department": findEmployeesByDepartment,
+                "Delete Employees": deleteEmployee,
             })        
         }
         employeesMain();
