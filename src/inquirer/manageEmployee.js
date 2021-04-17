@@ -2,41 +2,233 @@
 
 // function manageEmployee() {
 //     console.log("Manage Employeeeee!!");
-//     function addEmployee() {
-//         console.log("Add Employee!!");
-
-//         main();
-//     }
     
-//     function viewEmployee() {
-//         console.log("Viewing employees\n");
+//     function addEmployee() {
+//         console.log("Inserting an employee!")
       
 //         var query =
-//           `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
-//         FROM employee e
-//         LEFT JOIN role r
-//           ON e.role_id = r.id
-//         LEFT JOIN department d
-//         ON d.id = r.department_id
-//         LEFT JOIN employee m
-//           ON m.id = e.manager_id`
+//           `SELECT r.id, r.title, r.salary 
+//             FROM role r`
       
 //         connection.query(query, function (err, res) {
 //           if (err) throw err;
       
-//           console.table(res);
-//           console.log("Employees viewed!\n");
+//           const roleChoices = res.map(({ id, title, salary }) => ({
+//             value: id, title: `${title}`, salary: `${salary}`
+//           }));
       
-//           firstPrompt();
+//           console.table(res);
+//           console.log("RoleToInsert!");
+      
+//           promptInsert(roleChoices);
 //         });
-//         // console.log(query.sql);
 //       }
+      
+//       function promptInsert(roleChoices) {
+      
+//         inquirer
+//           .prompt([
+//             {
+//               type: "input",
+//               name: "first_name",
+//               message: "Enter the employee's first name?"
+//             },
+//             {
+//               type: "input",
+//               name: "last_name",
+//               message: "Enter the employee's last name?"
+//             },
+//             {
+//               type: "list",
+//               name: "roleId",
+//               message: "What is the Employee's role?",
+//               choices: roleChoices
+//             },
+//             {
+//                 type: "input",
+//                 name: "managerId",
+//                 message: "Enter Employee ID of Manager?",
+//               },
+//           ])
+//           .then(function (answer) {
+//             console.log(answer);
+      
+//             var query = `INSERT INTO employee SET ?`
+//             connection.query(query,
+//               {
+//                 first_name: answer.first_name,
+//                 last_name: answer.last_name,
+//                 role_id: answer.roleId,
+//                 manager_id: answer.managerId,
+//               },
+//               function (err, res) {
+//                 if (err) throw err;
+      
+//                 console.table(res);
+//                 // console.log(res.insertedRows + "Inserted successfully!\n");
+//                 console.log("Inserted successfully!\n");
+      
+//                 main();
+//               });
+//           });
+//       }
+    
+//     function viewEmployee() {
+//         console.log("Showing list of employees\n");
+      
+//         let query = 
+//     `SELECT 
+//         e.id, 
+//         e.first_name, 
+//         e.last_name, 
+//         r.title, 
+//         d.name AS department, 
+//         r.salary, 
+//         CONCAT(m.first_name, ' ', m.last_name) AS manager
+//     FROM employee e
+//     LEFT JOIN role r
+//         ON e.role_id = r.id
+//     LEFT JOIN department d
+//         ON d.id = r.department_id
+//     LEFT JOIN employee m
+//         ON m.id = e.manager_id`
+  
+//     connection.query(query, (err, res)=>{
+//       if (err) throw err;
+//       console.table(res);
+//       main();
+//     });
+// }
 
-//     function updateEmployee() {
-//         console.log("Update Employee!!");
+// function findEmployeesByDepartment(){
+//     let query =
+//     `SELECT 
+//         d.id, 
+//         d.name, 
+//         r.salary
+//     FROM employee e
+//     LEFT JOIN role r
+//         ON e.role_id = r.id
+//     LEFT JOIN department d
+//         ON d.id = r.department_id
+//     GROUP BY d.id, d.name, r.salary`;
+  
+//   connection.query(query,(err, res)=>{
+//       if (err) throw err;
+//       const deptChoices = res.map((choices) => ({
+//           value: choices.id, name: choices.name
+//       }));
+//     console.table(res);
+//     getDept(deptChoices);
+//   });
+// }
 
-//         main();
-//     }
+// function getDept(deptChoices){
+//     inquirer
+//         .prompt([
+//             {
+//                 type: 'list',
+//                 name: 'department',
+//                 message: 'Departments: ',
+//                 choices: deptChoices
+//             }
+//         ]).then((res)=>{ 
+//         let query = `SELECT 
+//                         e.id, 
+//                         e.first_name, 
+//                         e.last_name, 
+//                         r.title, 
+//                         d.name
+//                     FROM employee e
+//                     JOIN role r
+//                         ON e.role_id = r.id
+//                     JOIN department d
+//                         ON d.id = r.department_id
+//                     WHERE r.id = ?`
+  
+//         connection.query(query, res.department,(err, res)=>{
+//         if(err)throw err;
+//           main();
+//           console.log("Showing list of employees\n");
+
+//           console.table(res);
+//         });
+//     })
+// }
+      
+//     function updateEmployeeRole() {
+//         console.log("Update Employee Role!");
+
+//             let query = `SELECT 
+//                             e.id,
+//                             e.first_name, 
+//                             e.last_name, 
+//                             r.title, 
+//                             d.name, 
+//                             r.salary
+//                         FROM employee e
+//                         JOIN role r
+//                             ON e.role_id = r.id
+//                         JOIN department d
+//                             ON d.id = r.department_id`
+          
+//             connection.query(query,(err, res)=>{
+//               if(err)throw err;
+//               const employee = res.map(({ id, first_name, last_name }) => ({
+//                 value: id,
+//                  name: `${first_name} ${last_name}`      
+//               }));
+//               console.table(res);
+//               updateRole(employee);
+//             });
+//         }
+        
+//         function updateRole(employee){
+//           let query = 
+//           `SELECT 
+//             r.id, 
+//             r.title, 
+//             r.salary 
+//           FROM role r`
+        
+//           connection.query(query,(err, res)=>{
+//             if(err)throw err;
+//             let roleChoices = res.map(({ id, title, salary }) => ({
+//               value: id, 
+//               title: `${title}`, 
+//               salary: `${salary}`      
+//             }));
+//             console.table(res);
+//             getUpdatedRole(employee, roleChoices);
+//           });
+//         }
+          
+//         function getUpdatedRole(employee, roleChoices) {
+//           inquirer
+//             .prompt([
+//               {
+//                 type: "list",
+//                 name: "employee",
+//                 message: `Employee who's role will be Updated: `,
+//                 choices: employee
+//               },
+//               {
+//                 type: "list",
+//                 name: "role",
+//                 message: "Select New Role: ",
+//                 choices: roleChoices
+//               },
+        
+//             ]).then((res)=>{
+//               let query = `UPDATE employee SET role_id = ? WHERE id = ?`
+//               connection.query(query,[ res.role, res.employee],(err, res)=>{
+//                   if(err)throw err;
+//                   console.log("Employee Role Updated\n");
+//                   main();
+//                 });
+//             });
+//         }
+
 //     function employeeTasks(payload) {
 
 //         const taskNames = Object.keys(payload);
@@ -60,11 +252,13 @@
 //         function employeesMain() {
 //             employeeTasks({
 //                 "Add Employee": addEmployee,
-//                 "View Employee": viewEmployee,
-//                 "Update Employee": updateEmployee,
+//                 "View Employees": viewEmployee,
+//                 "Update Employee Role": updateEmployeeRole,
+//                 "Find Employee by Department": findEmployeesByDepartment,
 //             })        
 //         }
 //         employeesMain();
 // }
+
 
 // module.exports = manageEmployee;

@@ -18,21 +18,20 @@ function manageEmployee() {
     console.log("Manage Employeeeee!!");
     
     function addEmployee() {
-        console.log("Inserting an employee!")
+        console.log("\nInserting an employee!\n")
+
+        console.log("\nList of Roles to choose from ...\n");
       
         var query =
           `SELECT r.id, r.title, r.salary 
             FROM role r`
-      
-        connection.query(query, function (err, res) {
-          if (err) throw err;
-      
-          const roleChoices = res.map(({ id, title, salary }) => ({
-            value: id, title: `${title}`, salary: `${salary}`
-          }));
-      
-          console.table(res);
-          console.log("RoleToInsert!");
+
+        connection.query(query,(err, res)=>{
+        if (err) throw err;
+        const roleChoices = res.map((choices) => ({
+            value: choices.id, name: choices.name
+        }));
+        console.table(res);
       
           promptInsert(roleChoices);
         });
@@ -78,9 +77,7 @@ function manageEmployee() {
               function (err, res) {
                 if (err) throw err;
       
-                console.table(res);
-                // console.log(res.insertedRows + "Inserted successfully!\n");
-                console.log("Inserted successfully!\n");
+                console.log("\nInserted successfully!\n");
       
                 main();
               });
