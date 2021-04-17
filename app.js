@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 const inquirer = require('inquirer');
 
 // const manageEmployee = require('./src/inquirer/manageEmployee');
-const manageRole = require('./src/inquirer/manageRole');
+// const manageRole = require('./src/inquirer/manageRole');
 // const manageDepartment = require('./src/inquirer/manageDepartment');
 
 const connection = mysql.createConnection({
@@ -310,6 +310,78 @@ function manageEmployee() {
 }
 
 //MANAGE THE ROLES
+function manageRole() {
+    console.log("Manage Company Roles");
+
+    function addRole() {
+        console.log("\nAdd a new role\n");
+        inquirer
+            .prompt([
+                {
+                    type: "input",
+                    name: "title",
+                    message: "What shall the role be called?"
+                },
+                {
+                    type: "input",
+                    name: "salary",
+                    message: "Enter Role Salary",
+                  },
+            ]).then((res) => {
+                let query = `INSERT INTO role SET ?`;
+                connection.query(query, { 
+                    title: res.title, 
+                    salary: res.salary,
+                }, (err, res) => {
+                    if (err) throw err;
+                    main();
+                });
+            });
+    }
+
+    function viewRole() {
+        let query =
+            `SELECT 
+                r.id, 
+                r.title,
+                r.salary
+            FROM role r`
+
+        connection.query(query, (err, res) => {
+            if (err) throw err;
+            console.table(res);
+            main();
+        });
+    }
+
+    function departmentTasks(payload) {
+
+        const taskNames = Object.keys(payload);
+        const choices = taskNames.map((task) => {
+            return {
+                name: task,
+                value: payload[task],
+            }
+        })
+
+        inquirer.prompt([
+            {
+                name: "taskSelected",
+                message: "What would you like to do?",
+                type: "list",
+                choices: choices,
+            }
+        ]).then(({ taskSelected }) => taskSelected())
+    }
+
+    function departmentMain() {
+        departmentTasks({
+            "Add Role": addRole,
+            "View Roles": viewRole,
+        })
+    }
+    departmentMain();
+}
 
 
 //MANAGE THE DEPARTMENTS
