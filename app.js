@@ -179,15 +179,12 @@ function getDept(deptChoices){
                             e.last_name, 
                             r.title, 
                             d.name, 
-                            r.salary, 
-                            CONCAT(m.first_name, ' ', m.last_name) AS manager
+                            r.salary
                         FROM employee e
                         JOIN role r
                             ON e.role_id = r.id
                         JOIN department d
-                            ON d.id = r.department_id
-                        JOIN employee m
-                            ON m.id = e.manager_id`
+                            ON d.id = r.department_id`
           
             connection.query(query,(err, res)=>{
               if(err)throw err;
@@ -240,7 +237,7 @@ function getDept(deptChoices){
               let query = `UPDATE employee SET role_id = ? WHERE id = ?`
               connection.query(query,[ res.role, res.employee],(err, res)=>{
                   if(err)throw err;
-                  console.log("Employee Role UpdatedUp");
+                  console.log("Employee Role Updated\n");
                   main();
                 });
             });
