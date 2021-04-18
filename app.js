@@ -24,8 +24,10 @@ function manageEmployee() {
         console.log("\nList of Roles to choose from ...\n");
 
         var query =
-            `SELECT r.id, r.title, r.salary 
-            FROM role r`
+            `SELECT r.id, r.title, r.salary, r.department_id, d.name 
+            FROM department d
+            JOIN role r
+            ON d.id = r.department_id`
 
         connection.query(query, (err, res) => {
             if (err) throw err;
@@ -326,12 +328,18 @@ function manageRole() {
                     type: "input",
                     name: "salary",
                     message: "Enter Role Salary",
-                  },
+                },
+                {
+                    type: "input",
+                    name: "department",
+                    message: "Enter Department ID of Role?",
+                },
             ]).then((res) => {
                 let query = `INSERT INTO role SET ?`;
-                connection.query(query, { 
-                    title: res.title, 
+                connection.query(query, {
+                    title: res.title,
                     salary: res.salary,
+                    department_id: res.department,
                 }, (err, res) => {
                     if (err) throw err;
                     main();
