@@ -449,6 +449,11 @@ function manageDepartment() {
     departmentMain();
 }
 
+//EXIT APPLICATION
+function exit() {
+    connection.end();
+}
+
 // INTRO TO MANAGING THE TABLES
 function askTasks(payload) {
 
@@ -475,7 +480,7 @@ function main() {
         "Manage Employees": manageEmployee,
         "Manage Roles": manageRole,
         "Manage Department": manageDepartment,
-        // "EXIT": exit,
+        "EXIT": exit,
     })
 }
 
