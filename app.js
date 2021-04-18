@@ -132,6 +132,7 @@ function manageEmployee() {
             const deptChoices = res.map((choices) => ({
                 value: choices.id, name: choices.name
             }));
+            console.log(deptChoices);
             console.table(res);
             getDept(deptChoices);
         });
@@ -331,7 +332,7 @@ function manageRole() {
                 },
                 {
                     type: "input",
-                    name: "department",
+                    name: "department_id",
                     message: "Enter Department ID of Role?",
                 },
             ]).then((res) => {
@@ -339,7 +340,7 @@ function manageRole() {
                 connection.query(query, {
                     title: res.title,
                     salary: res.salary,
-                    department_id: res.department,
+                    department_id: res.department_id,
                 }, (err, res) => {
                     if (err) throw err;
                     main();

@@ -4,7 +4,7 @@ A basic solution for managing a company's employees using node, inquirer, and My
 ## Description
 This is a Node.js command-line application that interacts with a database. This interface is known as a Content Management System (CMS). In this  application we manage the company's employees using node, inquirer and MySQL. 
 
-To see a video off the application [click here!](https://www.dropbox.com/s/f8z6e1oh4r7478b/Screen%20Recording%202021-04-18%20at%202.02.17%20pm.mov?dl=0)
+To see a video off the application [click here!](https://www.dropbox.com/s/50k3tiyjg03cb92/Screen%20Recording%202021-04-18%20at%205.31.14%20pm.mov?dl=0)
 
 
 ## Table of Contents
@@ -12,8 +12,6 @@ To see a video off the application [click here!](https://www.dropbox.com/s/f8z6e
 * [Installation](#installation)
 * [Usage](#usage)
 * [User Story](#story)
-* [Instructions](#Instructions)
-* [Screenshot](#screenshot)
 * [Contact](#contact)
 
 
@@ -34,12 +32,6 @@ WHEN my input is provided
 THEN the Database is Queried or Updated
 WHEN I select EXIT
 THEN I exit the application, and the connection is ended. 
-
-
-## Screenshot
-Screenshot of Generated Page![## Screenshot](https://github.com/AdrianMEvans/CompanyProfileGenerator/blob/main/screenshots/GeneratedHtml.png?raw=true)
-Screenshot of Test Result in Terminal![## Screenshot](https://github.com/AdrianMEvans/CompanyProfileGenerator/blob/main/screenshots/testsTerminal.png?raw=true)
-Screenshot of Test Result HTML![## Screenshot](https://github.com/AdrianMEvans/CompanyProfileGenerator/blob/main/screenshots/testsHtml.png?raw=true)
 
 ## Contact :bellhop_bell:
 
