@@ -1,6 +1,6 @@
 // const inquirer = require('inquirer');
 
-// MANAGE DEPARTMENT TABLE
+// // MANAGE DEPARTMENT TABLE
 // function manageDepartment() {
 //     console.log("Manage Department!!");
 
@@ -64,4 +64,5 @@
 //     }
 //     departmentMain();
 // }
+
 // module.exports = manageDepartment;

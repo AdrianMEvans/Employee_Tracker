@@ -393,7 +393,7 @@ function manageRole() {
 }
 
 
-//MANAGE THE DEPARTMENTS
+// MANAGE THE DEPARTMENTS
 function manageDepartment() {
     console.log("Manage Department!!");
 
